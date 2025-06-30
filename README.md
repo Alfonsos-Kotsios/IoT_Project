@@ -22,7 +22,6 @@ app/
   templates/
     index.html             # Main HTML template
     settings.html          # Settings page template
-  venv1/                   # Python virtual environment
 ```
 
 ## Features
