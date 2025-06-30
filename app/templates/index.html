@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Conditions in Your Office</title>
+  <link rel="stylesheet" href="static/css/styles.css">
+</head>
+<body>
+
+  <header>Weather Conditions in Your Office</header>
+  <div class="container">
+    <div class="card">
+      <h1>Weather in Office</h1>
+      <div class="sensor">🌞 Light: <span id="light">Loading...</span> lux</div>
+      <div class="sensor">🌡️ Temperature: <span id="temperature">Loading...</span> °C</div>
+      <div class="sensor">💧 Humidity: <span id="humidity">Loading...</span> %</div>
+    </div>
+    {% if weather_data %}
+      <div class="card">
+        <h1>Weather in {{ weather_data.city }}</h1>
+        <div class="sensor">🌡️ Temperature: {{ weather_data.temp_c }} °C</div>
+        <div class="sensor">🌞 UV Index: {{ weather_data.uv }} </div>
+        <div class="sensor">💧 Humidity: {{ weather_data.humidity }} %</div>
+      </div>
+    {% endif %}
+  </div>
+
+  <button><a href="{{url_for('settings') }}">Settings</a></button>
+
+  <script>
+    async function fetchSensorData() {
+      try {
+        const response = await fetch('/data');
+        const data = await response.json();
+
+        document.getElementById("light").textContent = data.light || "N/A";
+        document.getElementById("temperature").textContent = data.temperature || "N/A";
+        document.getElementById("humidity").textContent = data.humidity || "N/A";
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchSensorData();
+    setInterval(fetchSensorData, 5000);
+  </script>
+
+</body>
+</html>
+

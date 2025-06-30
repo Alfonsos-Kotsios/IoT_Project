@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Settings</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+<body>
+    <header>Weather Conditions in Your Office</header>
+    <h2>Alert Settings</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <form method="post">
+        Email: <input type="email" name="email" value="{{ settings.email }}"><br>
+        Light(Lum) Threshold: <input type="number" name="LIGHT_THRESHOLD" value="{{ settings.LIGHT_THRESHOLD }}"><br>
+        Temp(°C) Threshold: <input type="number" name="TEMP_THRESHOLD" value="{{ settings.TEMP_THRESHOLD }}"><br>
+        Humidity(%) Threshold: <input type="number" name="HUMIDITY_THRESHOLD" value="{{ settings.HUMIDITY_THRESHOLD }}"><br>
+        Low Light(Lum) Threshold: <input type="number" name="LIGHT_LOW_THRESHOLD" value="{{ settings.LIGHT_LOW_THRESHOLD }}"><br>
+        Low Temp(°C) Threshold: <input type="number" name="TEMP_LOW_THRESHOLD" value="{{ settings.TEMP_LOW_THRESHOLD }}"><br>
+        Low Humidity(%) Threshold: <input type="number" name="HUMIDITY_LOW_THRESHOLD" value="{{ settings.HUMIDITY_LOW_THRESHOLD }}"><br>
+        Cooldown (seconds): <input type="number" name="COOLDOWN_SECONDS" value="{{ settings.COOLDOWN_SECONDS }}"><br>
+        <input type="submit" value="Save">
+    </form>
+    <button><a href="{{ url_for('index') }}">Back to Home</a></button>
+</body>
+</html>
